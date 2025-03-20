@@ -1,1 +1,9 @@
-*.sqlite*
+/vendor
+/node_modules
+.env
+/storage
+/public/storage
+/public/hot
+/public/mix-manifest.json
+/public/css/app.css
+/public/js/app.js

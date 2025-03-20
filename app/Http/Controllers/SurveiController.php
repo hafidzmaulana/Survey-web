@@ -5,18 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Survei;
 use App\Models\PertanyaanSurvei;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Redirect;
 
 class SurveiController extends Controller
 {
     public function index()
     {
         $surveis = Survei::with('pertanyaan')->get();
-        return view('surveis.index', compact('surveis'));
+        return View::make('surveis.index', compact('surveis'));
     }
 
     public function create()
     {
-        return view('surveis.create');
+        return View::make('surveis.create');
     }
 
     public function store(Request $request)
@@ -40,12 +42,12 @@ class SurveiController extends Controller
             ]);
         }
 
-        return redirect()->route('surveis.index')->with('success', 'Survei berhasil dibuat!');
+        return Redirect::route('surveis.index')->with('success', 'Survei berhasil dibuat!');
     }
 
     public function edit(Survei $survei)
     {
-        return view('surveis.edit', compact('survei'));
+        return View::make('surveis.edit', compact('survei'));
     }
 
     public function update(Request $request, Survei $survei)
@@ -59,12 +61,12 @@ class SurveiController extends Controller
 
         $survei->update($request->only(['nama', 'deskripsi', 'tanggal_mulai', 'tanggal_selesai']));
 
-        return redirect()->route('surveis.index')->with('success', 'Survei berhasil diperbarui!');
+        return Redirect::route('surveis.index')->with('success', 'Survei berhasil diperbarui!');
     }
 
     public function destroy(Survei $survei)
     {
         $survei->delete();
-        return redirect()->route('surveis.index')->with('success', 'Survei dihapus!');
+        return Redirect::route('surveis.index')->with('success', 'Survei dihapus!');
     }
 }
